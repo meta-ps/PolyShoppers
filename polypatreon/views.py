@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from .models import User,Product
 from django.http import JsonResponse
+from cart.cart import Cart
 
+loadedUserName=""
 # Create your views here.
 def Home(request):
     request.session['WalletAddress'] = "xxxxxx"
@@ -47,7 +49,13 @@ def check_username(request):
 
 def UserPage(request,username):
 
-    presentUserWallet=request.session['WalletAddress']
+    global loadedUserName
+    loadedUserName=username
+    try:
+        presentUserWallet=request.session['WalletAddress']
+    except:
+        presentUserWallet ='xxx'
+
 
     temp = User.objects.get(username=username)
 
@@ -57,16 +65,14 @@ def UserPage(request,username):
         'walletaddr':temp.walletid,
         'about':temp.about,
         'youtube':temp.youtube,
+        'products': Product.objects.filter(user=temp)
 
     }
-
 
 
     if(presentUserWallet != temp.walletid):
         return render(request,'seller_page.html',context)
     else:
-        products = Product.objects.filter(user=temp)
-        context['products'] = products
         return render(request,'seller_admin_page.html',context)
 
 def add_product(request):
@@ -79,3 +85,51 @@ def add_product(request):
     x=Product.objects.get_or_create(user=temp,name=name,image=image,price=price,description=description)
 
     return redirect('userpage',temp.username)
+
+
+def cart_add(request, id):
+
+    global loadedUserName
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.add(product=product)
+    return redirect('userpage',loadedUserName)
+
+
+def item_clear(request, id):
+
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.remove(product)
+    return redirect("cart_detail")
+
+
+def item_increment(request, id):
+
+
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.add(product=product)
+    return redirect("cart_detail")
+
+
+def item_decrement(request, id):
+
+
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.decrement(product=product)
+    return redirect("cart_detail")
+
+
+def cart_clear(request):
+
+
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+def cart_detail(request):
+    return render(request, 'cart_detail.html')
+
+

@@ -104,6 +104,7 @@
                     <li class="nav-item li-color">
                         <a class="nav-link" href="#">User Profile </i></a>
                     </li>
+                    <a href="{% url 'cart_detail' %}">Cart ( {{request.session.cart|length}} )</a>
                 </ul>
                 <div>
                 </div>
@@ -131,17 +132,17 @@
             </div>
         </div>
     </section>
-    <section class="w3-center w3-margin-bottom supportme" style="background-color: #c665f0;">
+    <!-- <section class="w3-center w3-margin-bottom supportme" style="background-color: #c665f0;">
         <div class="card">
             <div>
                 <h3><b>Support Me!</b></h3>
             </div>
             <div>
-                <img src="https://i.pinimg.com/originals/a3/17/08/a317085b479e7cdff35a3c69f0d57b02.jpg"
-                    alt="Coffee" style="padding-top:0px;width:15%" class="coffeeimg">
+                <img src="https://i.pinimg.com/originals/a3/17/08/a317085b479e7cdff35a3c69f0d57b02.jpg" alt="Coffee"
+                    style="padding-top:0px;width:15%" class="coffeeimg">
             </div>
-			<br/>
-			
+            <br />
+
             <div class="desc">
                 <input type="number" id="amount" placeholder=" 1 coffee = 1 MATIC" class="support_coffee"></input>
                 <br><br><br>
@@ -151,7 +152,20 @@
             </div>
 
         </div>
-    </section>
+    </section> -->
+
+    {% for i in products %}
+
+    {{i.name}}
+    <img src="/images/{{i.image}}" style="height: 20px;" /> {{i.price}} {{i.description}} <br>
+    <a href="{% url 'cart_add' i.id %}" class="btn btn-primary btn-md my-0 p">
+        Add to cart</a>
+
+    {% endfor %}
+
+
+
+
     </div>
     <footer class=" down_footer">
         <center>
