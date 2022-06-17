@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="icon" type="image/x-icon" src="{% static 'images/avatar.png' %}">
+
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="icon" type="image/x-icon"
+    href="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/30/000000/external-cup-fast-food-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png">
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@1,500&family=Prompt&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@1,500&family=Prompt&family=Space+Mono:ital@1&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@1,500&family=Prompt&family=Righteous&family=Space+Mono:ital@1&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@1,500&family=Prompt&family=Righteous&family=Space+Mono:ital@1&family=Ubuntu:wght@500&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@1,500&family=Prompt&family=Righteous&family=Space+Mono:ital@1&family=Titillium+Web:wght@300&family=Ubuntu:wght@500&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@1,500&family=Oleo+Script+Swash+Caps&family=Prompt&family=Righteous&family=Space+Mono:ital@1&family=Titillium+Web:wght@300&family=Ubuntu:wght@500&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@1,500&family=Montserrat:wght@500&family=Oleo+Script+Swash+Caps&     family=Prompt&family=Righteous&family=Space+Mono:ital@1&family=Titillium+Web:wght@300&family=Ubuntu:wght@500&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.6.6/ethers.esm.min.js"
+    integrity="sha512-VzLoi9bRjuMDsJexR9v+ihL/mSc2tCCHsd6z4fpzglj6FQpQFIeGBvgCCCipkQ7XYZe9Le8CdIzqR9r8n+wuhQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <style>
+    .header {
+      background-color: #ffff;
+    }
+
+    .body_heading {
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Prompt', sans-serif;
+      margin-bottom: 100px;
+    }
+
+    .bodyimg {
+      width: 600px;
+      height: 400px;
+      border-radius: 25px;
+
+    }
+
+    .heading_text {
+      font-size: 5rem;
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Montserrat', sans-serif;
+      font-family: 'Oleo Script Swash Caps', cursive;
+      font-family: 'Prompt', sans-serif;
+      font-family: 'Righteous', cursive;
+      font-family: 'Space Mono', monospace;
+      font-family: 'Titillium Web', sans-serif;
+      font-family: 'Ubuntu', sans-serif;
+      color: #812ca5;
+      margin-left: -1.5rem;
+      margin-top: 7rem;
+      padding: 5px;
+
+    }
+
+    .para_text {
+      font-size: 1.5rem;
+      font-family: 'Archivo', sans-serif;
+      margin-left: -3rem;
+    }
+
+    .howto {
+      justify-content: center;
+      margin-top: 5rem;
+      display: grid;
+      width: 100%;
+      padding: 1rem;
+
+    }
+
+    .speed {
+      text-align: center;
+      align-items: center;
+      margin-left: 45%;
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.5rem;
+      background-color: rgba(255, 252, 230, 1);
+    }
+
+    .speedtext {
+      margin-left: 10rem;
+      margin-right: 10rem;
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Prompt', sans-serif;
+      font-family: 'Space Mono', monospace;
+      color: rgb(90, 86, 86);
+      text-align: center;
+      padding: 20px;
+      font-size: 1.2rem;
+    }
+
+    .bodytext {
+      margin-left: 10rem;
+      margin-top: 1rem;
+    }
+
+
+    .para {
+      font-size: 23px;
+    }
+
+    .create_profile {
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Prompt', sans-serif;
+      font-family: 'Righteous', cursive;
+      font-family: 'Space Mono', monospace;
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    .input_text {
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Prompt', sans-serif;
+      font-family: 'Righteous', cursive;
+      font-family: 'Space Mono', monospace;
+      font-family: 'Titillium Web', sans-serif;
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    .home {
+      font-family: 'Space Mono', monospace;
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    .login {
+      font-family: 'Space Mono', monospace;
+      font-family: 'Ubuntu', sans-serif;
+      background-color: #e9e51f;
+    }
+
+    .form_image {
+      width: 500px;
+      height: 300px;
+    }
+
+    .img_container {
+      justify-content: center;
+      display: flex;
+
+    }
+
+    .submitbutton {
+      background-color: #63237e;
+      padding: none;
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Prompt', sans-serif;
+      border-radius: 10px;
+      /* font-family: 'Space Mono', monospace; */
+
+    }
+
+    .dontaions__information {
+      padding-top: 24px;
+      line-height: 30px;
+      font-size: 18px;
+      text-align: center;
+      font-family: "Circular Regular";
+    }
+
+    .footer {
+      margin-top: 80px;
+      height: 20px;
+    }
+
+    .footer__redes-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin: 45px auto;
+    }
+
+    li {
+      display: inline-block;
+    }
+
+    .footer__link {
+      text-transform: uppercase;
+      font-family: var(--title-font);
+      font-size: rem(14);
+    }
+
+    .fab {
+      margin-right: 8px;
+    }
+
+    .footer__texto {
+      color: #fff;
+      text-align: center;
+      font-size: 16px;
+      align-items: center;
+      padding: 3px;
+      margin-top: -8px;
+    }
+
+    .footer__icon {
+      color: #fff;
+      width: 50px;
+      height: 50px;
+    }
+
+    /* .footerbackground{
+    background-color:#8D3DAF ;
+  } */
+
+    footer {
+      background-color: #712891;
+    }
+  </style>
+
+
+  <script src="https://kit.fontawesome.com/f219becbba.js" crossorigin="anonymous"></script>
+  <title>Polypatreon</title>
+
+</head>
+
+
+<header class="header navbar-expand-md navbar-light ">
+  <nav class="navbar ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i><img
+            src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/30/000000/external-cup-fast-food-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png" /></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item li-color">
+            <a class="btn home" style="color: #4c0869; font-weight: 550;" href="#">Home</a>
+          </li>
+        </ul>
+        <div>
+          <a style="color:#000; border-radius: 50px" class="btn login" id="wallet-changeMe" onClick="connectWallet();">
+            <strong style="font-weight: 550;">Login With MetaMask 🦊</strong> </a>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </nav>
+</header>
+<hr />
+<br /><br />
+
+<body>
+  <div class="img_container">
+    <img class="bodyimg"
+      src="https://i0.wp.com/blog.flipsidecrypto.com/wp-content/uploads/2021/08/Blog-Polygon_01.gif?resize=682%2C436&ssl=1"
+      alt="..." />
+    <div class="bodytext">
+      <h1 class="heading_text">
+        Polypatreon
+      </h1>
+      <text class="para_text">
+        Get paid from your supporters with MATIC.
+      </text>
+    </div>
+
+  </div>
+
+  <section>
+    <div class="howto">
+      <div>
+        <strong class="speed">
+          HOW DOES IT WORK?
+        </strong>
+        <p class="speedtext">
+          Polypatreon makes supporting fun and easy. In just a couple of taps, your supporters can make the donations.
+          They
+          don't even have to create an account!
+        </p>
+      </div>
+      <div>
+        <strong class="speed">
+          ACCEPTING DONATIONS
+        </strong>
+        <p class="speedtext">
+          Through cryptocurrencies like Polygon, the audience from all around the globe can show their support by making
+          payments in a quick and hassle-free manner with low gas fees.
+        </p>
+      </div>
+      <div>
+        <strong class="speed">
+          OUR NEXT STEPS
+        </strong>
+        <p class="speedtext">
+          To Introduce Merchandise,where Creators can sell their items to their audience.
+        </p>
+      </div>
+    </div>
+  </section>
+  <br><br>
+
+
+
+  <section class="vh-100" style="background-color: #c665f0;">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                  <section id="profile">
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4 create_profile">Create Profile</p>
+
+                    <form method="post" action="{% url 'validate' %}" enctype='multipart/form-data'
+                      class="mx-1 mx-md-4">
+                      {% csrf_token %}
+                      <div class="d-flex flex-row align-items-center mb-4">
+
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="username" name="username-id" class="form-control input_text"
+                            placeholder="Username" required>
+
+                        </div>
+                      </div>
+                      <input type="text" id="wallet-address" name="wallet-address" class="form-control input_text"
+                        placeholder="Wallet" hidden>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <textarea id="about" name="about" class="form-control input_text"
+                            placeholder="About yourself"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="youtube" name="youtube" class="form-control input_text"
+                            placeholder="Social Handle" required>
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                        <button type="submit" class="btn btn-primary btn-lg submitbutton">Submit</button>
+                      </div>
+
+                    </form>
+
+                </div>
+                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                  <img src="https://www.mtpelerin.com/images/matic-token.svg" alt="Sample image" class="form_image">
+
+                </div>
+  </section>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
+
+  <footer class="footerbackground">
+
+    <center>
+      <p class="footer__texto"> React us at <br /> polypatreon@outlook.com</p>
+    </center>
+  </footer>
+
+</body>
+
+<script>
+  console.log("...");
+
+  async function connectWallet() {
+    console.log('Helloworld');
+    if (window.ethereum) {
+      console.log('1111111111111111111');
+      const allWalletAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      console.log(allWalletAccounts[0]);
+
+      document.getElementById('wallet-address').value = allWalletAccounts[0];
+      document.getElementById('wallet-changeMe').innerText = '👛 ' + allWalletAccounts[0].slice(0, 8) + '.....';
+    }
+  }
+
+
+  $('#username').on('change', function () {
+    var username = $(this).val();
+    console.log("...")
+    $.ajax({
+      url: 'check_username/',
+      data: {
+        'username': username
+      },
+      dataType: 'json',
+      success: function (data) {
+        if (data.username) {
+          alert("Username already taken");
+        }
+      }
+    });
+  });
+
+</script>
+
+</html>
