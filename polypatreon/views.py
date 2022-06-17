@@ -29,7 +29,7 @@ def CreateOrValidateUser(request):
             t_wallet = request.POST.get('wallet-address')
             t_about = request.POST.get('about')
             t_youtube = request.POST.get('youtube')
-            request.session['WalletAddress'] =temp.walletid
+            request.session['WalletAddress'] =t_wallet
             t_user = User.objects.create(username=t_username,walletid=t_wallet,about=t_about,youtube=t_youtube)
             return redirect('userpage',t_username)
     else:
