@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{%load static%}
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +15,22 @@
 
     <h1>User Profile</h1>
 
+    <h1>Add Product</h1>
+    <div>
+        <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+            <input type="text" name="productname" required>
+            <input type="file" name="image" required>
+            <input type="text" name="price" required>
+            <input type="text" name="description">
+        </form>
+    </div>
 
+    {% for i in products %}
+
+    {{i.name}}
+    <img src="/images/{{i.image}}" style="height: 20px;" /> {{i.price}} {{i.description}} <br>
+
+    {% endfor %}
 
 
 </body>

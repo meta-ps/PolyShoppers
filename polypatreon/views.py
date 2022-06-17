@@ -19,7 +19,7 @@ def CreateOrValidateUser(request):
             temp=False
         if temp:
             request.session['WalletAddress'] =temp.walletid
-            return redirect('userpage',temp)
+            return redirect('userpage',temp.username)
         else:
             print('update userdetails')
             t_username = request.POST.get('username-id')
@@ -68,3 +68,14 @@ def UserPage(request,username):
         products = Product.objects.filter(user=temp)
         context['products'] = products
         return render(request,'seller_admin_page.html',context)
+
+def add_product(request):
+    temp = User.objects.get(walletid=request.session['WalletAddress'])
+    
+    name=request.POST.get('productname')
+    image=request.FILES.getlist('image')
+    price=request.POST.get('price')
+    description=request.POST.get('description')
+    x=Product.objects.get_or_create(user=temp,name=name,image=image,price=price,description=description)
+
+    return redirect('userpage',temp.username)

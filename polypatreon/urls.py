@@ -9,6 +9,7 @@ urlpatterns = [
     path('create/',CreateOrValidateUser,name='validate'),
     path('in/<str:username>/',UserPage,name='userpage'),
     path('check_username/', check_username, name='check_username'),
+    path('add_product/',add_product,name='add_product')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
