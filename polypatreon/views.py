@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from cart.cart import Cart
 
 loadedUserName=""
+isSupporterDone=False
 # Create your views here.
 def Home(request):
     request.session['WalletAddress'] = "xxxxxx"
@@ -88,6 +89,8 @@ def add_product(request):
 
 
 def cart_add(request, id):
+    global isSupporterDone
+    isSupporterDone = False
 
     global loadedUserName
     cart = Cart(request)
@@ -105,6 +108,8 @@ def item_clear(request, id):
 
 
 def item_increment(request, id):
+    global isSupporterDone
+    isSupporterDone = False
 
     cart = Cart(request)
     product = Product.objects.get(id=id)
@@ -130,12 +135,20 @@ def cart_clear(request):
 
 def cart_detail(request):
     global loadedUserName
+    global isSupporterDone
     temp = User.objects.get(username=loadedUserName)
     cart = Cart(request)
     dic = list(cart.session['cart'].values())
     total_price = sum([each['quantity']*(float(each['price'])) for each in dic])
-    context = {"total":total_price,'receiverWalletAddress':temp.walletid}
+    context = {"total":total_price,'receiverWalletAddress':temp.walletid,'isSupporterDone':isSupporterDone}
 
     return render(request, 'cart_detail.html',context)
 
 
+#reload Page for clean up
+def clean_user_cart(request):
+    cart = Cart(request)
+    cart.clear()
+    global isSupporterDone
+    isSupporterDone = True
+    return redirect('cart_detail')

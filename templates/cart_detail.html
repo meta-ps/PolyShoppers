@@ -9,7 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.ethers.io/scripts/ethers-v3.min.js" charset="utf-8" type="text/javascript">
+
+
     </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -18,7 +22,10 @@
 
 
     <br>
-    <div class='col-sm-10 col-sm-offset-2' style="margin-top: 5rem!important;">
+
+    {% if isSupporterDone == False%}
+
+    <div>
 
         <table class='table'>
             <thead>
@@ -55,13 +62,12 @@
             {% endfor %}
         </table>
         <button onClick="connectWallet()">Support</button>
-        <div id="support-success"></div>
-
-
-
-
 
     </div>
+    {% else %}
+
+    Thanks for the support
+    {% endif %}
 
 </body>
 
@@ -86,7 +92,7 @@
 
     async function transaction() {
 
-        const _1_MATIC_value = "{{total}}";
+        const _1_MATIC_value = "{{ total }}";
         const provider_t = new ethers.providers.Web3Provider(window.ethereum);
         const signer_t = provider_t.getSigner();
         console.log(signer_t);
@@ -95,11 +101,17 @@
         console.log('Hello');
         console.log(x);
         alert('Money Sent to Receiver');
-        document.getElementById('support-success').innerHTML = "Thanks for support";
+        $.ajax({
+            type: "GET",
+            url: 'clean_user_cart/',
+            data: {},
+            dataType: 'json',
+            success: function (data) {
 
+                console.log('removed old cart')
+            }
+        });
     }
-
-
 
 </script>
 
