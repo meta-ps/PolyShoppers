@@ -174,39 +174,4 @@
     </footer>
 </body>
 
-<script>
-
-    const receiver = "{{ walletaddr }}";
-    let sender;
-    console.log('receiver');
-    console.log(receiver);
-
-
-    async function connectWallet() {
-
-        if (window.ethereum) {
-            const allWalletAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            sender = allWalletAccounts[0];
-            document.getElementById("buy_coffee").innerText = "Buy Me a Coffee";
-            document.getElementById("buy_coffee").setAttribute("onClick", "javascript: transaction();");
-
-            console.log('sender' + sender);
-        }
-    }
-
-    async function transaction() {
-        const _1_MATIC_value = "1";
-        const provider_t = new ethers.providers.Web3Provider(window.ethereum);
-        const signer_t = provider_t.getSigner();
-        console.log(signer_t);
-        const txn = await signer_t.sendTransaction({ to: receiver, value: ethers.utils.parseEther(_1_MATIC_value) });
-        const x = txm.wait();
-        console.log('Hello');
-        console.log(x);
-    }
-
-
-
-</script>
-
 </html>

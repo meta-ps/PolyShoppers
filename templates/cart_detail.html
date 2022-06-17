@@ -8,6 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.ethers.io/scripts/ethers-v3.min.js" charset="utf-8" type="text/javascript">
+    </script>
+
 </head>
 
 <body>
@@ -22,9 +25,6 @@
                 <th>Item</th>
                 <th>Price</th>
                 <th>Qty</th>
-                <th>Price</th>
-                <th>Add / Remove</th>
-                <th>Delete</th>
             </thead>
             <tfoot>
                 <tr>
@@ -33,7 +33,6 @@
                     <td></td>
                     <td></td>
                     <td>Total: {{total}}</td>
-                    <td><a href="" class="btn btn-dark ">Checkout</a></td>
                 </tr>
             </tfoot>
 
@@ -45,9 +44,8 @@
 
                 <td>{{ value.price|multiply:value.quantity }}</td>
                 <td>
-                    <a href="{% url 'item_increment' value.product_id %}"><img
-                            src="{% static 'images/up.png'%}"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="{% url 'item_decrement' value.product_id %}"><img src="{% static 'images/down.png'%}"></a>
+                    <a href="{% url 'item_increment' value.product_id %}">+</a>
+                    <a href="{% url 'item_decrement' value.product_id %}">-</a>
                 </td>
                 <td>
                     <a href="{% url 'item_clear' value.product_id %}">del</a>
@@ -56,9 +54,54 @@
 
             {% endfor %}
         </table>
+        <button onClick="connectWallet()">Support</button>
+        <div id="support-success"></div>
+
+
+
+
 
     </div>
 
 </body>
+
+<script>
+
+    const receiver = "{{ receiverWalletAddress }}";
+    let sender;
+    console.log('receiver');
+    console.log(receiver);
+
+
+    async function connectWallet() {
+
+        if (window.ethereum) {
+            const allWalletAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            sender = allWalletAccounts[0];
+
+            transaction();
+            console.log('sender' + sender);
+        }
+    }
+
+    async function transaction() {
+
+        const _1_MATIC_value = "{{total}}";
+        const provider_t = new ethers.providers.Web3Provider(window.ethereum);
+        const signer_t = provider_t.getSigner();
+        console.log(signer_t);
+        const txn = await signer_t.sendTransaction({ to: receiver, value: ethers.utils.parseEther(_1_MATIC_value) });
+        const x = txn.wait();
+        console.log('Hello');
+        console.log(x);
+        alert('Money Sent to Receiver');
+        document.getElementById('support-success').innerHTML = "Thanks for support";
+
+    }
+
+
+
+</script>
+
 
 </html>

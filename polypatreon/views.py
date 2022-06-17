@@ -106,7 +106,6 @@ def item_clear(request, id):
 
 def item_increment(request, id):
 
-
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
@@ -130,6 +129,13 @@ def cart_clear(request):
     return redirect("cart_detail")
 
 def cart_detail(request):
-    return render(request, 'cart_detail.html')
+    global loadedUserName
+    temp = User.objects.get(username=loadedUserName)
+    cart = Cart(request)
+    dic = list(cart.session['cart'].values())
+    total_price = sum([each['quantity']*(float(each['price'])) for each in dic])
+    context = {"total":total_price,'receiverWalletAddress':temp.walletid}
+
+    return render(request, 'cart_detail.html',context)
 
 
