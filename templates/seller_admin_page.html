@@ -14,24 +14,26 @@
 
 
     <h1>User Profile</h1>
-
+    <hr>
     <h1>Add Product</h1>
     <div>
         <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+            {% csrf_token %}
             <input type="text" name="productname" required>
             <input type="file" name="image" required>
             <input type="text" name="price" required>
             <input type="text" name="description">
+            <input type="submit" value="add Product">
         </form>
     </div>
-
+    <hr>
+    <h1>Display all products</h1>
     {% for i in products %}
 
     {{i.name}}
     <img src="/images/{{i.image}}" style="height: 20px;" /> {{i.price}} {{i.description}} <br>
 
     {% endfor %}
-
 
 </body>
 

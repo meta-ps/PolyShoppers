@@ -73,7 +73,7 @@ def add_product(request):
     temp = User.objects.get(walletid=request.session['WalletAddress'])
     
     name=request.POST.get('productname')
-    image=request.FILES.getlist('image')
+    image=request.FILES.get('image')
     price=request.POST.get('price')
     description=request.POST.get('description')
     x=Product.objects.get_or_create(user=temp,name=name,image=image,price=price,description=description)
