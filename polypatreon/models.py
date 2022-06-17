@@ -11,3 +11,12 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
+class Product(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='products/')
+    price = models.FloatField()
+    description = models.CharField(max_length=3000,null=True,blank=True)
+
+    def __str__(self):
+        return self.user.username

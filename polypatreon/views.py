@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
-from .models import User
+from .models import User,Product
 from django.http import JsonResponse
 
 # Create your views here.
 def Home(request):
-
+    request.session['WalletAddress'] = "xxxxxx"
     context={}
     return render(request,'seller_home.html',context)
 
@@ -18,6 +18,7 @@ def CreateOrValidateUser(request):
         except:
             temp=False
         if temp:
+            request.session['WalletAddress'] =temp.walletid
             return redirect('userpage',temp)
         else:
             print('update userdetails')
@@ -25,7 +26,7 @@ def CreateOrValidateUser(request):
             t_wallet = request.POST.get('wallet-address')
             t_about = request.POST.get('about')
             t_youtube = request.POST.get('youtube')
-            
+            request.session['WalletAddress'] =temp.walletid
             t_user = User.objects.create(username=t_username,walletid=t_wallet,about=t_about,youtube=t_youtube)
             return redirect('userpage',t_username)
     else:
@@ -45,8 +46,11 @@ def check_username(request):
 
 
 def UserPage(request,username):
-    
+
+    presentUserWallet=request.session['WalletAddress']
+
     temp = User.objects.get(username=username)
+
 
     context={
         'username':username,
@@ -55,4 +59,12 @@ def UserPage(request,username):
         'youtube':temp.youtube,
 
     }
-    return render(request,'seller_page.html',context)
+
+
+
+    if(presentUserWallet != temp.walletid):
+        return render(request,'seller_page.html',context)
+    else:
+        products = Product.objects.filter(user=temp)
+        context['products'] = products
+        return render(request,'seller_admin_page.html',context)
