@@ -18,7 +18,7 @@ urlpatterns = [
          item_decrement, name='item_decrement'),
     path('cart/cart_clear/', cart_clear, name='cart_clear'),
     path('cart/cart-detail/',cart_detail,name='cart_detail'),
-    path('cart/cart-detail/clean_user_cart/', clean_user_cart, name='clean_user_cart'),
+    path('clean_user_cart/', clean_user_cart, name='clean_user_cart'),
 
 
 

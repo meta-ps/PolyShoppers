@@ -52,6 +52,7 @@ def UserPage(request,username):
 
     global loadedUserName
     loadedUserName=username
+    request.session['userName']= username
     try:
         presentUserWallet=request.session['WalletAddress']
     except:
@@ -93,6 +94,7 @@ def cart_add(request, id):
     isSupporterDone = False
 
     global loadedUserName
+
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
@@ -136,7 +138,7 @@ def cart_clear(request):
 def cart_detail(request):
     global loadedUserName
     global isSupporterDone
-    temp = User.objects.get(username=loadedUserName)
+    temp = User.objects.get(username=request.session['userName'])
     cart = Cart(request)
     dic = list(cart.session['cart'].values())
     total_price = sum([each['quantity']*(float(each['price'])) for each in dic])
