@@ -30,7 +30,7 @@ def CreateOrValidateUser(request):
             t_about = request.POST.get('about')
             t_youtube = request.POST.get('youtube')
             request.session['WalletAddress'] =t_wallet
-            t_user = User.objects.create(username=t_username,walletid=t_wallet,about=t_about,youtube=t_youtube)
+            t_user = User.objects.get_or_create(username=t_username,walletid=t_wallet,about=t_about,youtube=t_youtube)
             return redirect('userpage',t_username)
     else:
         return redirect('home')
@@ -77,13 +77,13 @@ def UserPage(request,username):
         return render(request,'seller_admin_page.html',context)
 
 def add_product(request):
-    temp = User.objects.get(walletid=request.session['WalletAddress'])
+    temp = User.objects.get(username=loadedUserName)
     
     name=request.POST.get('productname')
     image=request.FILES.get('image')
     price=request.POST.get('price')
     description=request.POST.get('description')
-    x=Product.objects.get_or_create(user=temp,name=name,image=image,price=price,description=description)
+    x=Product.objects.create(user=temp,name=name,image=image,price=price,description=description)
 
     return redirect('userpage',temp.username)
 
