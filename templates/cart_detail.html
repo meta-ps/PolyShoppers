@@ -53,35 +53,38 @@
 
       {% endfor %}
     </table>
-    <button onClick="connectWallet()">Support</button>
-    <a href="{% url 'clean_user_cart' %}" id="clean-up" hidden></a>
+    <button onClick="connectWallet();">Support</button>
   </div>
   {% else %}
 
   Thanks for the support
   {% endif %}
 
+  <form action="{% url 'clean_user_cart' %}" method="POST" hidden>
+    {% csrf_token %}
+    <input type="text" name="sender" id="sender" />
+    <input type="submit" id="clean-up" />
+  </form>
+
   <script>
 
-    const receiver = "{{ receiverWalletAddress }}";
+    const receiver = "{{receiverWalletAddress}}";
     let sender;
     console.log('receiver');
     console.log(receiver);
-
-
     async function connectWallet() {
-
       if (window.ethereum) {
-        const allWalletAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const allWalletAccounts = await window.ethereum.request({
+          method: 'eth_requestAccounts'
+        });
         sender = allWalletAccounts[0];
-
+        document.getElementById('sender').value = sender;
         transaction();
         console.log('sender' + sender);
       }
     }
 
     async function transaction() {
-
       const _1_MATIC_value = "{{ total }}";
       const provider_t = new ethers.providers.Web3Provider(window.ethereum);
       const signer_t = provider_t.getSigner();
@@ -93,7 +96,6 @@
       alert('Money Sent to Receiver');
       document.getElementById('clean-up').click();
     }
-
   </script>
 
 

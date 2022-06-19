@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import User,Product
+from .models import User,Product,UserHistory
 from django.http import JsonResponse
 from cart.cart import Cart
 
@@ -92,7 +92,6 @@ def add_product(request):
 def cart_add(request, id):
     global isSupporterDone
     isSupporterDone = False
-
     global loadedUserName
 
     cart = Cart(request)
@@ -151,6 +150,11 @@ def cart_detail(request):
 def clean_user_cart(request):
     cart = Cart(request)
     cart.clear()
+    temp = User.objects.get(username=request.session['userName'])
+    sender = request.POST.get('sender')
+
+    x = UserHistory.objects.create(user=temp,fromUser=sender,toUser=temp.walletid)
+
     global isSupporterDone
     isSupporterDone = True
     return redirect('cart_detail')

@@ -21,3 +21,11 @@ class Product(models.Model):
     def __str__(self):
         return self.user.username
 
+class UserHistory(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    fromUser = models.CharField(max_length=255,null=False,blank=False)
+    toUser = models.CharField(max_length=255,null=False,blank=False)
+
+    def __str__(self):
+        return self.fromUser
+        
