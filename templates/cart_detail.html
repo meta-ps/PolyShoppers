@@ -8,10 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://cdn.ethers.io/scripts/ethers-v3.min.js" charset="utf-8" type="text/javascript">
-
-
-  </script>
+  <script src="https://cdn.ethers.io/scripts/ethers-v3.min.js" charset="utf-8" type="text/javascript"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
@@ -64,43 +61,43 @@
   Thanks for the support
   {% endif %}
 
-</body>
+  <script>
 
-<script>
-
-  const receiver = "{{ receiverWalletAddress }}";
-  let sender;
-  console.log('receiver');
-  console.log(receiver);
+    const receiver = "{{ receiverWalletAddress }}";
+    let sender;
+    console.log('receiver');
+    console.log(receiver);
 
 
-  async function connectWallet() {
+    async function connectWallet() {
 
-    if (window.ethereum) {
-      const allWalletAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      sender = allWalletAccounts[0];
+      if (window.ethereum) {
+        const allWalletAccounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        sender = allWalletAccounts[0];
 
-      transaction();
-      console.log('sender' + sender);
+        transaction();
+        console.log('sender' + sender);
+      }
     }
-  }
 
-  async function transaction() {
+    async function transaction() {
 
-    const _1_MATIC_value = "{{ total }}";
-    const provider_t = new ethers.providers.Web3Provider(window.ethereum);
-    const signer_t = provider_t.getSigner();
-    console.log(signer_t);
-    const txn = await signer_t.sendTransaction({ to: receiver, value: ethers.utils.parseEther(_1_MATIC_value) });
-    const x = txn.wait();
-    console.log('Hello');
-    console.log(x);
-    alert('Money Sent to Receiver');
-    clean - up
-    document.getElementById('clean-up').click();
-  }
+      const _1_MATIC_value = "{{ total }}";
+      const provider_t = new ethers.providers.Web3Provider(window.ethereum);
+      const signer_t = provider_t.getSigner();
+      console.log(signer_t);
+      const txn = await signer_t.sendTransaction({ to: receiver, value: ethers.utils.parseEther(_1_MATIC_value) });
+      const x = txn.wait();
+      console.log('Hello');
+      console.log(x);
+      alert('Money Sent to Receiver');
+      document.getElementById('clean-up').click();
+    }
 
-</script>
+  </script>
+
+
+</body>
 
 
 </html>
