@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class SolbucksConfig(AppConfig):
-    name = 'polypatreon'
+    name = 'polyshoppers'
