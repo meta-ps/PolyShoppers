@@ -61,13 +61,14 @@ def UserPage(request,username):
 
     temp = User.objects.get(username=username)
 
-
+    userhistory=UserHistory.objects.filter(user=temp)
     context={
         'username':username,
         'walletaddr':temp.walletid,
         'about':temp.about,
         'youtube':temp.youtube,
-        'products': Product.objects.filter(user=temp)
+        'products': Product.objects.filter(user=temp),
+        'userhistory':userhistory
 
     }
 
