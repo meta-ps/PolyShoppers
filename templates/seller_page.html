@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polypatreon</title>
+    <title>PolyShoppers</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="icon" type="image/x-icon"
         href="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/30/000000/external-cup-fast-food-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png">
@@ -21,76 +21,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
 
-    <script>
-        function redirect() {
-            window.open('{{youtube}}', '_blank');
-        }
-    </script>
 
 </head>
 
-<style>
-    .user_name {
-        display: flex;
-        justify-content: center;
-
-    }
-
-    .user_profile {
-        font-family: 'Archivo', sans-serif;
-        font-family: 'Prompt', sans-serif;
-        font-family: 'Space Mono', monospace;
-        font-family: 'Titillium Web', sans-serif;
-        font-family: 'Ubuntu', sans-serif;
-        padding: 5px;
-        justify-content: center;
-    }
-
-    .user_img {
-        display: flex;
-        justify-content: center;
-    }
-
-    .social_handle {
-        border-radius: 10px;
-        background-color: blueviolet;
-        padding: 8px;
-        border-color: none;
-        color: #fff;
-
-
-    }
-
-    .supportme {
-        padding: 3%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .card {
-        display: flex;
-        width: 45%;
-        height: 20rem;
-        border-radius: 15px;
-        justify-content: center;
-
-    }
-
-    .coffeeimg {
-        align-items: center;
-    }
-
-    .down_footer {
-        background-color: #712891;
-        padding: 10px;
-    }
-
-    .footer__text {
-        color: #fff;
-        font-size: 15px;
-        align-items: center;
-    }
-</style>
 
 <header class="header navbar-expand-md navbar-light ">
     <nav class="navbar ">
@@ -120,21 +53,51 @@
 <hr>
 
 <body>
-    <section class="user_name">
-        <div>
-            <div class="user_img">
-                <img src="{% static 'images/avatar.png' %}" alt="Boss" style="width:15%"
-                    class="w3-circle w3-hover-opacity">
+
+
+    <div class="flex items-center h-screen w-full justify-center">
+        <div class="max-w-md">
+            <div class="bg-white shadow-xl rounded-lg py-3">
+                <div class="photo-wrapper p-10">
+                    <img class="w-42 h-40 rounded-full mx-auto" src="{% static 'images/avatar.png' %}" alt="John Doe">
+                </div>
+                <div class="p-2">
+                    <h3 class="text-center text-xl text-gray-900 font-medium leading-8">{{username}}</h3>
+                    <div class="text-center text-gray-400 text-xs font-semibold">
+                        <p>{{about}}</p>
+                    </div>
+                   
+                    <div class="text-center my-3">
+                        <a class="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium" onclick="redirect()">View Profile</a>
+                    </div>
+        
+                </div>
             </div>
-            <div class="w3-opacity">
-                <span class="w3-button w3-xxlarge w3-white w3-right" onclick="w3_open()"><i
-                        class="fa fa-bars"></i></span>
-                <br />
-                <div class="w3-center w3-margin-bottom">
-                    <h1 class="user_profile"><b>{{username}}</b></h1>
-                    <p class="user_profile"><b>{{about}}</b></p>
-                    <p class=" user_profile"><button class="social_handle " onclick="redirect()">Social Handle</button>
-                    </p>
+        </div>
+    </div>
+
+
+
+
+    <section class="bg-white">
+        <div class="container px-6 py-8 mx-auto">
+            <div class="lg:flex lg:-mx-2">
+                <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {% for i in products %}
+                    <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
+                            <img class="object-cover w-full rounded-md h-72 xl:h-80" src="/images/{{i.image}}" alt="T-Shirt">
+                            <h4 class="mt-2 text-lg font-medium">{{i.name}}</h4>
+                            <p class="text-blue-500">{{i.price}} MATIC</p>
+                            <p class="text-sm text-gray-700">{{i.description}}</p>
+                            <a href="{% url 'cart_add' i.id %}"  class="flex items-center justify-center w-full px-2 py-2 mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                                </svg>
+                                    Add to cart
+                                </a>
+                    </div> 
+                    {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,23 +105,12 @@
 
 
 
-    {% for i in products %}
-
-    <img src="/images/{{i.image}}" alt="" />
-
-    <h2>{{i.name}}</h2>
-    <p>{{i.description}}</p>
-    <span>{{i.price}}</span>&nbsp;<span class="text-sm font-bold">MATIC</span>
-
-
-    <a href="{% url 'cart_add' i.id %}" class="btn btn-primary btn-md my-0 pt-1">Add to
-        cart</a>
-    <br />
-    {% endfor %}
-
-
-
 
 </body>
 
+<script>
+    function redirect() {
+        window.open('{{youtube}}', '_blank');
+    }
+</script>
 </html>
